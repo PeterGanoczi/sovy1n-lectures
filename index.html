@@ -6,8 +6,17 @@
   </head>
 
   <body>
-    <div>Hello Sovy, my name is Peter</div>
+    <div>Hello Sovy, my name is <span id="nameFromApi"></span></div>
 
-    <script src="src/index.js"></script>
+    <script>
+      fetch("https://swapi.co/api/people/1/").then(function(response) {
+        response.json().then(function(data) {
+          console.log(data);
+          console.log(data.name);
+
+          document.getElementById("nameFromApi").innerHTML = data.name;
+        });
+      });
+    </script>
   </body>
 </html>
