@@ -6,17 +6,41 @@
   </head>
 
   <body>
-    <div>Hello Sovy, my name is <span id="nameFromApi"></span></div>
+    <div style="text-align: center;">Hello Sovy, my name is <span id="nameFromApi"></span></div>
+    <div style="text-align: center" ;>
+      <button id="decrement" onclick="changeValue(0)"><</button>
+      <button id="increment" onclick="changeValue(1)">></button>
+    </div>
 
     <script>
-      fetch("https://swapi.co/api/people/1/").then(function(response) {
-        response.json().then(function(data) {
-          console.log(data);
-          console.log(data.name);
+      var route = "https://swapi.co/api/people/";
+      var number = 1;
+      var slash = "/";
 
-          document.getElementById("nameFromApi").innerHTML = data.name;
+      var decrement = document.getElementById("decrement");
+
+      function changeValue(value) {
+        if (value == 0) {
+          number -= 1;
+
+          changeFetch();
+        }
+        if (value == 1) {
+          number += 1;
+
+          changeFetch();
+        }
+      }
+
+      function changeFetch() {
+        fetch(route.concat(number, slash)).then(function(response) {
+          response.json().then(function(data) {
+            document.getElementById("nameFromApi").innerHTML = data.name;
+          });
         });
-      });
+      }
+
+      changeFetch();
     </script>
   </body>
 </html>
